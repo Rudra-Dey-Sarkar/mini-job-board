@@ -10,7 +10,7 @@ import Footer from '../Footer/Footer';
 function ClientLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const pathname = usePathname();
-
+    
     useEffect(() => {
         if (pathname === "/company") {
             router.push("/company/jobs");

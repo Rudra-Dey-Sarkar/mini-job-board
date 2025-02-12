@@ -1,11 +1,14 @@
 // Creating Database connection
 "use server"
-import mongoose from "mongoose";
+import mongoose from "mongoose"
+const DB = process.env.NEXT_PUBLIC_DB!;
 
-export const ConnectDB = async ()=>{
-    await mongoose.connect(process.env.NEXT_PUBLIC_DB!).then(()=>{
+const ConnectDB = ()=>{
+    mongoose.connect(DB).then(()=>{
         console.log("Database connected");
-    }).catch((error)=>{
-        console.log("Database cannot connect due to :- ", error);
+    }).catch((errors)=>{
+        console.log("Cannot Connect to database due to :-",errors);
     })
 }
+
+export default ConnectDB;

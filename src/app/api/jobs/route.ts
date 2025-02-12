@@ -1,10 +1,9 @@
 "use server"
 import { NextRequest, NextResponse } from "next/server"
 import mongoose from "mongoose"
-import { ConnectDB } from "../../../../actions/db"
+import ConnectDB from "../../../../actions/db";
 
 const jobSchema = new mongoose.Schema({
-    _id:String,
     title: String,
     description: String,
     category: String,
@@ -51,7 +50,6 @@ export const POST = async (req: NextRequest) => {
     if(!data._id){
         try {
             const response = await jobsModel.insertMany([allData]);
-    
             if (response.length > 0) {
                 return NextResponse.json({ status: 200, message: response });
             } else {
@@ -65,8 +63,6 @@ export const POST = async (req: NextRequest) => {
     }else{
         try {
             const response = await jobsModel.find({ _id: data?._id});
-            console.log("test 1", data?._id);
-            console.log(response);
             if (response) {
                 return NextResponse.json({ status: 200, message: response });
             } else {

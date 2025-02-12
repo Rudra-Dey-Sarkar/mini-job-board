@@ -1,12 +1,11 @@
 import React from 'react'
-import Jobs from '../../../../components/Jobs/Jobs'
+import New from '../../../../components/New/New'
 
 function page() {
   return (
     <div>
-        <Jobs />
+        <New />
     </div>
-    
   )
 }
 

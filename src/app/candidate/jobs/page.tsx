@@ -6,7 +6,6 @@ function page() {
     <div>
         <Jobs />
     </div>
-    
   )
 }
 
