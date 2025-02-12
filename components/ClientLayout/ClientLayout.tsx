@@ -52,7 +52,7 @@ function ClientLayout({ children }: { children: React.ReactNode }) {
                         <button
                             className='flex items-center text-[1.2rem] font-bold'
                             onClick={() => router.forward()}>
-                            <p>Forwar</p>
+                            <p>Forward</p>
                             <svg
                                 width="25px"
                                 height="25px"
