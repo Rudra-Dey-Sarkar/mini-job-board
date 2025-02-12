@@ -2,3 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Candidate Button */
+.candidate-btn  {
+    position: relative;
+}
+.candidate-btn::after,
+.candidate-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: cyan;
+    width: 0%;
+    height: 100%;
+    z-index: -1;
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+}
+.candidate-btn:hover::after,
+.candidate-btn:hover::before  {
+    width: 100%;
+}
+
+
+
+
+/* Company Button */
+.company-btn  {
+    position: relative;
+}
+.company-btn::after,
+.company-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: white;
+    width: 0%;
+    height: 100%;
+    z-index: -1;
+    transition: width 0.3s ease-in-out; /* Smooth transition */
+}
+.company-btn:hover::after,
+.company-btn:hover::before  {
+    width: 100%;
+}
