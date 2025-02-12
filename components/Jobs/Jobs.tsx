@@ -5,6 +5,7 @@ import EditJob from '../EditJob/EditJob'
 import toast from 'react-hot-toast'
 import { usePathname } from 'next/navigation'
 
+
 type JobDataType = [{
   _id: string,
   title: string,
@@ -31,7 +32,7 @@ async function ViewJobs(setJobs: React.Dispatch<React.SetStateAction<any[] | Job
     console.log("Cannot proceed to view jobs due to :-", error);
   }
 }
-async function RemoveEvent(_id: string, setIsRemoveConfirmed: React.Dispatch<React.SetStateAction<string>>) {
+async function RemoveEvent(_id: string, setJobs: React.Dispatch<React.SetStateAction<any[] | JobDataType>>) {
 
   try {
     const response = await fetch("/api/jobs", {
@@ -46,7 +47,7 @@ async function RemoveEvent(_id: string, setIsRemoveConfirmed: React.Dispatch<Rea
 
     if (resData.status === 200) {
       toast.success("Job Removed");
-      setIsRemoveConfirmed("");
+      setJobs((prevJobs: any[] ) => prevJobs.filter((job: { _id: string }) => job._id !== _id));
     } else {
       toast.error("An Error Occurred");
     }
@@ -103,13 +104,13 @@ function Jobs() {
             <div
               className='flex justify-between items-center px-2 border-b-2 border-cyan-500 py-4 hover:bg-gray-200 hover:cursor-pointer'
               key={index}
-              onClick={() => router.push(pathname==="/company/jobs" ? `/company/jobs/${job?._id}` : `/candidate/jobs/${job?._id}`)}>
+              onClick={() => router.push(pathname === "/company/jobs" ? `/company/jobs/${job?._id}` : `/candidate/jobs/${job?._id}`)}>
               <div>
                 <p className='text-[1.2rem] font-semibold'>{job?.title}</p>
                 <p className='text-[0.9rem] font-semibold text-cyan-500'>{job?.location}</p>
               </div>
 
-              {pathname !== "/candidate/jobs" &&
+              {pathname !== "/candidate/jobs" ?
                 <div className='flex gap-2'>
                   {/* Edit Event Button */}
                   <button
@@ -148,7 +149,7 @@ function Jobs() {
                     className=' bg-cyan-100 p-2 rounded-full hover:scale-105'
                     onClick={(e) => {
                       setIsRemoveConfirmed(job?._id);
-                      RemoveEvent(job?._id, setIsRemoveConfirmed)
+                      RemoveEvent(job?._id, setJobs)
                       e.stopPropagation();
                     }}>
                     <svg
@@ -177,7 +178,13 @@ function Jobs() {
                       </g>
                     </svg>
                   </button>
-                </div>
+                </div> :
+                <button
+                  className='border-2 border-white mt-5 px-5 py-2 font-semibold rounded-[5px] bg-cyan-500 text-white hover:scale-105 hover:bg-cyan-400'
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    router.push(`/candidate/apply/${job?._id}`)
+                  }}>Apply</button>
               }
             </div>
           )}

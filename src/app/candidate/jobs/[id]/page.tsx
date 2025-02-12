@@ -63,7 +63,7 @@ function ViewJobDetails({ params }: PageProps) {
 
                     <button 
                     className='border-2 border-white mt-5 px-5 py-2 font-semibold rounded-[5px] bg-cyan-500 text-white hover:scale-105 hover:bg-cyan-400'
-                    onClick={() => router.push(`/company/jobs/${job?.[0]?._id}/applications`)}>View Applications</button>
+                    onClick={() => router.push(`/candidate/apply/${job?.[0]?._id}`)}>Apply</button>
                 </div> :
                 <div className='font-semibold text-[1.6rem] py-5'>
                     <p className='text-center'>No Job Datas Available !</p>
