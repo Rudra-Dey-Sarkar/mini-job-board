@@ -11,7 +11,7 @@ type CandidateDataType = [{
 
 function ApplicationModal({isModalOpen, setIsModalOpen}:{ isModalOpen: CandidateDataType[0] | undefined, setIsModalOpen: React.Dispatch<React.SetStateAction<CandidateDataType[0] | undefined>>}) {
   return (
-    <div>
+    <div className='pb-7'>
         <div className='flex justify-end'>
          <button 
          className='font-bold text-red-500 text-[1.2rem]'

@@ -18,7 +18,7 @@ type PageProps = {
     params: Promise<{ jobId: string }>;
 };
 
-async function Apply(data: CandidateDataType[0], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>,  router: AppRouterInstance) {
+async function Apply(data: CandidateDataType[0], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, setIsApplied: React.Dispatch<React.SetStateAction<boolean>>) {
     setIsLoading(true);
     try {
         const response = await fetch("/api/applications", {
@@ -28,12 +28,12 @@ async function Apply(data: CandidateDataType[0], setIsLoading: React.Dispatch<Re
             },
             body: JSON.stringify(data)
         });
-        
+
         const resData = await response;
-        if (resData.status===200) {
+        if (resData.status === 200) {
             setIsLoading(false);
+            setIsApplied(true);
             toast.success("Applied");
-            router.push("/candidate/jobs");
         } else {
             setIsLoading(false);
             toast.error("An Error Occurred");
@@ -49,6 +49,7 @@ async function Apply(data: CandidateDataType[0], setIsLoading: React.Dispatch<Re
 function ApplyJob({ params }: PageProps) {
     const router = useRouter();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isApplied, setIsApplied] = useState<boolean>(false);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm<CandidateDataType[0]>({
         defaultValues: {
             jobId: "",
@@ -70,11 +71,31 @@ function ApplyJob({ params }: PageProps) {
 
     return (
         <div className="grid justify-center items-center w-full h-full">
+            {/* Success message */}
+            {isApplied === true &&
+                <div
+                    className='flex fixed inset-0 justify-center items-center bg-black bg-opacity-50 z-50'
+                    onClick={() => setIsApplied(false)}>
+                    <div
+                        className='grid gap-y-14 bg-green-500  p-10'
+                        onClick={(e) => e.stopPropagation()}>
+                        <div className='flex justify-end'>
+                            <button
+                                className='font-bold text-red-500 text-[1.2rem]'
+                                onClick={() =>{
+                                    setIsApplied(false);
+                                    router.push("/candidate/jobs");
+                                }}>Close</button>
+                        </div>
+                        <p className="font-semibold text-[2rem] text-white">Applied Successfully🎉</p>
+                    </div>
+                </div>
+            }
             <div className="grid gap-y-7">
                 <p className="text-center font-semibold text-[1.2rem] sm:text-[1.6rem]">Apply for this Job</p>
                 <form
                     className="grid border-2 gap-y-2 border-gray-600 p-5 w-fit h-fit"
-                    onSubmit={handleSubmit((data)=>Apply(data, setIsLoading, router))}>
+                    onSubmit={handleSubmit((data) => Apply(data, setIsLoading, setIsApplied))}>
                     {/* Loader */}
                     {isLoading && (
                         <div className="fixed flex inset-0 justify-center items-center bg-gray-100 bg-opacity-50 z-50">
