@@ -17,7 +17,9 @@ function Topbar() {
   return (
     <div className='flex justify-between items-center px-2 py-2 border-b-2 border-gray-600'>
 
-      <div className='flex gap-x-3 items-center'>
+      <div
+        className='flex gap-x-3 items-center hover:cursor-pointer'
+        onClick={() => router.push("/")}>
         <svg
           id="Layer_1"
           xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +223,7 @@ function Topbar() {
           <div className='grid gap-y-2 absolute right-0 top-10 bg-white w-[100px] px-2 py-2 border-2 border-gray-500 z-10'>
             <button
               className='font-semibold w-full px-1 py-1 hover:bg-gray-200'
-              onClick={() => {router.push("/")}}>Logout</button>
+              onClick={() => { router.push("/") }}>Logout</button>
           </div>
         }
       </div>
