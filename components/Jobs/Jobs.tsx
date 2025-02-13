@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import EditJob from '../EditJob/EditJob'
 import toast from 'react-hot-toast'
 import { usePathname } from 'next/navigation'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 
 type JobDataType = [{
@@ -33,7 +34,7 @@ async function ViewJobs(setJobs: React.Dispatch<React.SetStateAction<any[] | Job
   }
 }
 // Remove specific job function 
-async function RemoveEvent(_id: string, setJobs: React.Dispatch<React.SetStateAction<any[] | JobDataType>>) {
+async function RemoveEvent(_id: string, removed: boolean, setRemoved: React.Dispatch<React.SetStateAction<boolean>>,jobs: any[] | JobDataType, router: AppRouterInstance) {
 
   try {
     const response = await fetch("/api/jobs", {
@@ -48,7 +49,12 @@ async function RemoveEvent(_id: string, setJobs: React.Dispatch<React.SetStateAc
 
     if (resData.status === 200) {
       toast.success("Job Removed");
-      setJobs((prevJobs: any[]) => prevJobs.filter((job: { _id: string }) => job._id !== _id));
+      console.log(jobs.length)
+      if(jobs.length>1){
+        setRemoved(removed === false ? true : false);
+      }else{
+        router.push("company/jobs");
+      }
     } else {
       toast.error("An Error Occurred");
     }
@@ -70,10 +76,11 @@ function Jobs() {
   const [EJ, setEJ] = useState<JobDataType[0] | undefined>(undefined);
   const [searching, setSearching] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
-
+  const [removed, setRemoved]=useState<boolean>(false);
+  const [finalRemoved, setFinalRemoved] = useState<boolean>(false);
   useEffect(() => {
     ViewJobs(setJobs);
-  }, [EJ]);
+  }, [EJ, removed, finalRemoved]);
 
   return (
     <div>
@@ -200,7 +207,7 @@ function Jobs() {
                   <button
                     className=' bg-cyan-100 p-2 rounded-full hover:scale-105'
                     onClick={(e) => {
-                      RemoveEvent(job?._id, setJobs)
+                      RemoveEvent(job?._id, removed, setRemoved, jobs ,router)
                       e.stopPropagation();
                     }}>
                     <svg
