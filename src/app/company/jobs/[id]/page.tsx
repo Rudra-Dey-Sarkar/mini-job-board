@@ -16,6 +16,7 @@ type JobDataType = [{
 type PageProps = {
     params: Promise<{ id: string }>;
 };
+//View specific jobs details function
 async function ViewSpecificJob(_id: string, setJob: React.Dispatch<React.SetStateAction<any[] | JobDataType>>) {
     try {
         const response = await fetch("/api/jobs", {

@@ -17,7 +17,7 @@ type JobDataType = [{
     to: number | null
   }
 }]
-
+// View all posted jobs by the companies function
 async function ViewJobs(setJobs: React.Dispatch<React.SetStateAction<any[] | JobDataType>>) {
   try {
     const response = await fetch("/api/jobs");
@@ -32,6 +32,7 @@ async function ViewJobs(setJobs: React.Dispatch<React.SetStateAction<any[] | Job
     console.log("Cannot proceed to view jobs due to :-", error);
   }
 }
+// Remove specific job function 
 async function RemoveEvent(_id: string, setJobs: React.Dispatch<React.SetStateAction<any[] | JobDataType>>) {
 
   try {
@@ -47,7 +48,7 @@ async function RemoveEvent(_id: string, setJobs: React.Dispatch<React.SetStateAc
 
     if (resData.status === 200) {
       toast.success("Job Removed");
-      setJobs((prevJobs: any[] ) => prevJobs.filter((job: { _id: string }) => job._id !== _id));
+      setJobs((prevJobs: any[]) => prevJobs.filter((job: { _id: string }) => job._id !== _id));
     } else {
       toast.error("An Error Occurred");
     }
@@ -57,22 +58,25 @@ async function RemoveEvent(_id: string, setJobs: React.Dispatch<React.SetStateAc
   }
 
 }
-
+// Job searching function 
+function SearchingJobs(jobs: any[] | JobDataType, searching: string) {
+  return (jobs.filter((job) => job.title.toLowerCase().includes(searching.toLowerCase())));
+}
 function Jobs() {
   const router = useRouter();
   const pathname = usePathname();
 
   const [jobs, setJobs] = useState<JobDataType | any[]>([]);
   const [EJ, setEJ] = useState<JobDataType[0] | undefined>(undefined);
-  const [isRemoveConfirmed, setIsRemoveConfirmed] = useState<string>("");
+  const [searching, setSearching] = useState<string>("");
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   useEffect(() => {
     ViewJobs(setJobs);
-  }, [EJ, isRemoveConfirmed]);
+  }, [EJ]);
 
   return (
     <div>
-
       {/* Edit Jobs */}
       {EJ !== undefined &&
         <div
@@ -90,10 +94,58 @@ function Jobs() {
       <div className='flex justify-between items-center px-2 py-3 bg-cyan-500'>
         <p className='font-semibold text-[1.6rem] text-white underline'>All Posted Jobs :-</p>
 
-        {pathname !== "/candidate/jobs" &&
+        {pathname !== "/candidate/jobs" ?
+          // For companies only job post button
           <button
             className='border-2 border-white px-5 py-2 font-semibold rounded-[5px] text-white hover:scale-105 hover:bg-cyan-400'
-            onClick={() => router.push("/company/new")}>Post a Job</button>
+            onClick={() => router.push("/company/new")}>Post a Job</button> :
+          // For candidates only job searching bar
+          <div
+            className='relative'
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+          >
+            {/* Searching */}
+            <div className='flex items-center gap-x-1 p-1 w-fit bg-white'>
+              <input
+                type="text"
+                value={searching}
+                onChange={(e) => setSearching(e.target.value)}
+                placeholder='Software Developer'
+                className='p-1 w-full'
+              />
+              <svg
+                fill="#000000"
+                height="25px"
+                width="25px"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 488.4 488.4"
+                xmlSpace="preserve">
+                <g>
+                  <g>
+                    <path d="M0,203.25c0,112.1,91.2,203.2,203.2,203.2c51.6,0,98.8-19.4,134.7-51.2l129.5,129.5c2.4,2.4,5.5,3.6,8.7,3.6 s6.3-1.2,8.7-3.6c4.8-4.8,4.8-12.5,0-17.3l-129.6-129.5c31.8-35.9,51.2-83,51.2-134.7c0-112.1-91.2-203.2-203.2-203.2 S0,91.15,0,203.25z M381.9,203.25c0,98.5-80.2,178.7-178.7,178.7s-178.7-80.2-178.7-178.7s80.2-178.7,178.7-178.7 S381.9,104.65,381.9,203.25z" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+            {/* Search Result */}
+            {isFocused && (
+              <div className='absolute w-full bg-gray-100 mt-1 px-1 py-1'>
+                {SearchingJobs(jobs, searching).slice(0,5).map((job: JobDataType[0], index: number) => (
+                  <p
+                    key={index}
+                    className='py-2 border-b-2 font-semibold border-cyan-500 hover:bg-gray-200 hover:cursor-pointer'
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => router.push(`/candidate/jobs/${job?._id}`)}
+                  >
+                    {job?.title}
+                  </p>
+                ))}
+              </div>
+            )}
+          </div>
         }
       </div>
 
@@ -148,7 +200,6 @@ function Jobs() {
                   <button
                     className=' bg-cyan-100 p-2 rounded-full hover:scale-105'
                     onClick={(e) => {
-                      setIsRemoveConfirmed(job?._id);
                       RemoveEvent(job?._id, setJobs)
                       e.stopPropagation();
                     }}>

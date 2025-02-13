@@ -4,6 +4,7 @@ import Applications from '../../../../../../components/Applications/Applications
 function page() {
   return (
     <div>
+      {/* Applications */}
         <Applications />
     </div>
   )

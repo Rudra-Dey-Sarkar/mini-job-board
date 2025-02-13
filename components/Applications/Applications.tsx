@@ -40,6 +40,7 @@ function Applications() {
   const [jobApplications, setJobApplications] = useState<CandidateDataType | any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<CandidateDataType[0] | undefined>(undefined);
 
+  
   useEffect(() => {
     const data = pathname.split("/");
     ViewSpecificJobsAllApplications(data[3], setJobApplications)

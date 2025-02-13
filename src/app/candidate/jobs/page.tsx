@@ -4,6 +4,7 @@ import Jobs from '../../../../components/Jobs/Jobs'
 function page() {
   return (
     <div>
+      {/* Jobs */}
         <Jobs />
     </div>
   )

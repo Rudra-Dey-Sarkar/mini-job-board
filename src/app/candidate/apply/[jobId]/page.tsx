@@ -1,5 +1,4 @@
 "use client";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,6 +17,7 @@ type PageProps = {
     params: Promise<{ jobId: string }>;
 };
 
+//Apply the job function
 async function Apply(data: CandidateDataType[0], setIsLoading: React.Dispatch<React.SetStateAction<boolean>>, setIsApplied: React.Dispatch<React.SetStateAction<boolean>>) {
     setIsLoading(true);
     try {
