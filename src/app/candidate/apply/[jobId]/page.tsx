@@ -100,7 +100,7 @@ function ApplyJob({ params }: PageProps) {
                     {isLoading && (
                         <div className="fixed flex inset-0 justify-center items-center bg-gray-100 bg-opacity-50 z-50">
                             <img
-                                src="https://hstilxjonxwbqwojwimd.supabase.co/storage/v1/object/sign/profile_picture/features/loader.gif"
+                                src="https://hstilxjonxwbqwojwimd.supabase.co/storage/v1/object/sign/profile_picture/features/loader.gif?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJwcm9maWxlX3BpY3R1cmUvZmVhdHVyZXMvbG9hZGVyLmdpZiIsImlhdCI6MTczODY2NzgyNSwiZXhwIjo0NzM0NTg3ODI1fQ.EzqgoARETFtL8vemGmLZrzTzdKfHyd0u5inm4CWtmcE"
                                 alt="Loading..."
                                 className="w-[100px] h-[100px]"
                             />
