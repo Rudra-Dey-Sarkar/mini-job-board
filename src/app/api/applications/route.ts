@@ -14,7 +14,7 @@ const applicationSchema = new mongoose.Schema({
 
 const applicationModel = mongoose.models.applications || mongoose.model("applications", applicationSchema);
 
-//Route to apply jobs
+//Route to apply jobs and see the application
 export const POST = async (req: NextRequest) => {
     ConnectDB();
     const data = await req.json();
@@ -26,6 +26,7 @@ export const POST = async (req: NextRequest) => {
         resume: data?.resume,
         coverLetter: data?.coverLetter,
     }
+    // logic to look for a specific jobs all applications
     if (data?.jobId !== undefined && data?.name === undefined && data?.email === undefined && data?.experience === undefined && data?.resume === undefined && data?.coverLetter === undefined) {
         try {
             const response = await applicationModel.find({ jobId: data?.jobId });
@@ -39,7 +40,7 @@ export const POST = async (req: NextRequest) => {
             console.log(errors);
             return NextResponse.json({ status: 400, message: errors });
         }
-    } else {
+    } else { // logic to add a new applications
         if (!data._id) {
             try {
                 const response = await applicationModel.insertMany([allData]);
@@ -53,7 +54,7 @@ export const POST = async (req: NextRequest) => {
                 console.log(errors);
                 return NextResponse.json({ status: 400, message: errors });
             }
-        } else {
+        } else { //logic to view specific application
             try {
                 const response = await applicationModel.find({ _id: data?._id });
                 if (response.length > 0) {
