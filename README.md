@@ -17,6 +17,67 @@ Deployed Application Link :- https://mini-job-board-alpha.vercel.app/
 
 Github Link :- https://github.com/Rudra-Dey-Sarkar/mini-job-board
 
+# Structure 
+Directory structure:
+└── rudra-dey-sarkar-mini-job-board/
+    ├── README.md
+    ├── eslint.config.mjs
+    ├── next.config.ts
+    ├── package.json
+    ├── postcss.config.mjs
+    ├── tailwind.config.ts
+    ├── tsconfig.json
+    ├── actions/
+    │   └── db.ts
+    ├── components/
+    │   ├── ApplicationModal/
+    │   │   └── ApplicationModal.tsx
+    │   ├── Applications/
+    │   │   └── Applications.tsx
+    │   ├── ClientLayout/
+    │   │   └── ClientLayout.tsx
+    │   ├── EditJob/
+    │   │   └── EditJob.tsx
+    │   ├── Footer/
+    │   │   └── Footer.tsx
+    │   ├── Jobs/
+    │   │   └── Jobs.tsx
+    │   ├── Main/
+    │   │   └── Main.tsx
+    │   ├── New/
+    │   │   └── New.tsx
+    │   └── Topbar/
+    │       └── Topbar.tsx
+    ├── public/
+    └── src/
+        └── app/
+            ├── globals.css
+            ├── layout.tsx
+            ├── page.tsx
+            ├── api/
+            │   ├── applications/
+            │   │   └── route.ts
+            │   └── jobs/
+            │       └── route.ts
+            ├── candidate/
+            │   ├── apply/
+            │   │   └── [jobId]/
+            │   │       └── page.tsx
+            │   └── jobs/
+            │       ├── page.tsx
+            │       └── [id]/
+            │           └── page.tsx
+            └── company/
+                ├── jobs/
+                │   ├── page.tsx
+                │   └── [id]/
+                │       ├── page.tsx
+                │       └── applications/
+                │           └── page.tsx
+                └── new/
+                    └── page.tsx
+
+
 # Contacts
 In case you have any doubts you can contact me using below details :- 
 
