@@ -92,7 +92,7 @@ function Jobs() {
 
       {/* Top portion */}
       <div className='flex justify-between items-center px-2 py-3 bg-cyan-500'>
-        <p className='font-semibold text-[1.6rem] text-white underline'>All Posted Jobs :-</p>
+        <p className='font-semibold text-[1.2rem] sm:text-[1.6rem] text-white underline'>All Posted Jobs :-</p>
 
         {pathname !== "/candidate/jobs" ?
           // For companies only job post button
