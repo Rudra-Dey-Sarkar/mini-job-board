@@ -14,26 +14,6 @@ const applicationSchema = new mongoose.Schema({
 
 const applicationModel = mongoose.models.applications || mongoose.model("applications", applicationSchema);
 
-//Route to view all jobs applications
-export const GET = async (req: NextRequest) => {
-    ConnectDB();
-
-    try {
-        const response = await applicationModel.find();
-
-        if (response.length > 0) {
-            return NextResponse.json({ status: 200, message: response });
-        } else {
-            return NextResponse.json({ status: 404, message: "no jobs application found" });
-        }
-
-
-    } catch (errors) {
-        console.log(errors);
-        return NextResponse.json({ status: 400, message: errors });
-    }
-
-}
 //Route to apply jobs
 export const POST = async (req: NextRequest) => {
     ConnectDB();

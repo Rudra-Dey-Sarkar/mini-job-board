@@ -47,6 +47,7 @@ export const POST = async (req: NextRequest) => {
         location: data.location,
         salaryRange: data.salaryRange
     }
+    // logic in case of adding new job post
     if(!data._id){
         try {
             const response = await jobsModel.insertMany([allData]);
@@ -60,7 +61,7 @@ export const POST = async (req: NextRequest) => {
             console.log(errors);
             return NextResponse.json({ status: 400, message: errors });
         }
-    }else{
+    }else{ // logic in case looking for a specific job post
         try {
             const response = await jobsModel.find({ _id: data?._id});
             if (response) {
