@@ -83,6 +83,7 @@ function Jobs() {
   const [finalRemoved, setFinalRemoved] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  
   useEffect(() => {
     ViewJobs(setJobs, setIsLoading);
   }, [EJ, removed, finalRemoved]);
