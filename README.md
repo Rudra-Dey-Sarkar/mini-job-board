@@ -10,8 +10,14 @@ Database :- MongoDB
 Deployement :- Vercel
 
 # Links
+Video 1 Link :- https://www.loom.com/share/afa561a729c543b8bde02a351b6a2ebe
+ 
+Video 2 Link :-
 Video Link :- https://www.loom.com/share/6b9a3900755d409bb5808a64a7732240
  
+
+Deployed Application Link :- https://mini-job-board-alpha.vercel.app/
+
 
 Deployed Application Link :- https://mini-job-board-alpha.vercel.app/
 
